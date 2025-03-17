@@ -21,9 +21,21 @@ function createUser(user: Omit<User, "id">) {
   return newUser;
 }
 
-function getUserById(id: string) {
+function getUserByEmail(email: string) {
   const users = readUsers();
-  return users.find((user: User) => user.id === id);
+  return users.find((user: User) => user.email === email);
+}
+
+function signinUser(email: string, password: string) {
+  const user = getUserByEmail(email);
+  if (!user) {
+    return null;
+  }
+  const isPasswordValid = bcrypt.compareSync(password, user.password);
+  if (!isPasswordValid) {
+    return null;
+  }
+  return user;
 }
 
 function updateUser(id: string, user: User) {
@@ -52,7 +64,8 @@ function deleteUser(id: string) {
 export const userModel = {
   readUsers,
   createUser,
-  getUserById,
+  getUserByEmail,
+  signinUser,
   updateUser,
   deleteUser,
 };

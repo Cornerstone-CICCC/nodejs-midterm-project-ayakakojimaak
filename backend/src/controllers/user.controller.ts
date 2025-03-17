@@ -13,21 +13,24 @@ function createUser(req: Request<{}, {}, Omit<User, "id">>, res: Response) {
   res.json(user);
 }
 
-function getUserById(req: Request<{ id: string }>, res: Response) {
-  const { id } = req.params;
-  const user = userModel.getUserById(id);
-  if (!user) {
-    return res.status(404).json({ error: "User not found" });
-  } else {
-    return res.status(200).json(user);
-  }
-}
-
 function updateUser(req: Request<{ id: string }, {}, User>, res: Response) {
   const { id } = req.params;
   const user = userModel.updateUser(id, req.body);
   if (!user) {
     return res.status(404).json({ error: "User not found" });
+  }
+  return res.status(200).json(user);
+}
+
+function signinUser(req: Request<{}, {}, User>, res: Response) {
+  const { email, password } = req.body;
+  const user = userModel.getUserByEmail(email);
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  const isPasswordValid = userModel.signinUser(email, password);
+  if (!isPasswordValid) {
+    return res.status(401).json({ error: "Invalid password" });
   }
   return res.status(200).json(user);
 }
@@ -44,7 +47,7 @@ function deleteUser(req: Request<{ id: string }>, res: Response) {
 export const userController = {
   getUser,
   createUser,
-  getUserById,
+  signinUser,
   updateUser,
   deleteUser,
 };

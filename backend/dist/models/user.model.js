@@ -22,9 +22,20 @@ function createUser(user) {
     fs_1.default.writeFileSync(userDataFilePath, JSON.stringify(users, null, 2));
     return newUser;
 }
-function getUserById(id) {
+function getUserByEmail(email) {
     const users = readUsers();
-    return users.find((user) => user.id === id);
+    return users.find((user) => user.email === email);
+}
+function signinUser(email, password) {
+    const user = getUserByEmail(email);
+    if (!user) {
+        return null;
+    }
+    const isPasswordValid = bcrypt_1.default.compareSync(password, user.password);
+    if (!isPasswordValid) {
+        return null;
+    }
+    return user;
 }
 function updateUser(id, user) {
     const users = readUsers();
@@ -50,7 +61,8 @@ function deleteUser(id) {
 exports.userModel = {
     readUsers,
     createUser,
-    getUserById,
+    getUserByEmail,
+    signinUser,
     updateUser,
     deleteUser,
 };

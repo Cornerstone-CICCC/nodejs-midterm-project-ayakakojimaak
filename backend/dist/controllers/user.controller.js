@@ -11,21 +11,23 @@ function createUser(req, res) {
     const user = user_model_1.userModel.createUser(reqBody);
     res.json(user);
 }
-function getUserById(req, res) {
-    const { id } = req.params;
-    const user = user_model_1.userModel.getUserById(id);
-    if (!user) {
-        return res.status(404).json({ error: "User not found" });
-    }
-    else {
-        return res.status(200).json(user);
-    }
-}
 function updateUser(req, res) {
     const { id } = req.params;
     const user = user_model_1.userModel.updateUser(id, req.body);
     if (!user) {
         return res.status(404).json({ error: "User not found" });
+    }
+    return res.status(200).json(user);
+}
+function signinUser(req, res) {
+    const { email, password } = req.body;
+    const user = user_model_1.userModel.getUserByEmail(email);
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+    const isPasswordValid = user_model_1.userModel.signinUser(email, password);
+    if (!isPasswordValid) {
+        return res.status(401).json({ error: "Invalid password" });
     }
     return res.status(200).json(user);
 }
@@ -40,7 +42,7 @@ function deleteUser(req, res) {
 exports.userController = {
     getUser,
     createUser,
-    getUserById,
+    signinUser,
     updateUser,
     deleteUser,
 };
