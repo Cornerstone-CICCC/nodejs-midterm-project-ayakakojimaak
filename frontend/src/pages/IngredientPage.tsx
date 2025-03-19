@@ -76,21 +76,23 @@ const IngredientPage: React.FC = () => {
             {ingredient.strIngredient} is used in {cocktails.length} cocktails
           </h1>
           {ingredient.strDescription && (
-            <div className="bg-zinc-50 p-4 rounded-lg mb-6">
-              <p className="text-zinc-700">{ingredient.strDescription}</p>
+            <div className="bg-stone-50 p-4 rounded-lg mb-6">
+              <p className="text-stone-700">{ingredient.strDescription}</p>
             </div>
           )}
           <div className="flex flex-wrap gap-2 mb-6">
             {ingredient.strType && (
-              <span className="px-3 py-1 bg-zinc-100 rounded-full text-sm font-medium">type: {ingredient.strType}</span>
+              <span className="px-3 py-1 bg-stone-100 rounded-full text-sm font-medium">
+                type: {ingredient.strType}
+              </span>
             )}
             {ingredient.strAlcohol && (
-              <span className="px-3 py-1 bg-zinc-100 rounded-full text-sm font-medium">
+              <span className="px-3 py-1 bg-stone-100 rounded-full text-sm font-medium">
                 alcohol: {ingredient.strAlcohol}
               </span>
             )}
             {ingredient.strABV && (
-              <span className="px-3 py-1 bg-zinc-100 rounded-full text-sm font-medium">
+              <span className="px-3 py-1 bg-stone-100 rounded-full text-sm font-medium">
                 alcohol content: {ingredient.strABV}%
               </span>
             )}

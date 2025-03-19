@@ -35,14 +35,14 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
   return (
     <Card className="w-full max-w-md p-8">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-zinc-900 mb-2">Sign Up</h2>
+        <h2 className="text-3xl font-bold text-stone-900 mb-2">Sign Up</h2>
       </div>
 
-      {error && <div className="mb-4 p-3 border border-zinc-300 text-zinc-900 rounded-md">{error}</div>}
+      {error && <div className="mb-4 p-3 border border-stone-300 text-stone-900 rounded-md">{error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-zinc-900 mb-1">
+          <label htmlFor="name" className="block text-sm font-medium text-stone-900 mb-1">
             Name
           </label>
           <input
@@ -50,13 +50,13 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-transparent"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-zinc-900 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-stone-900 mb-1">
             Email
           </label>
           <input
@@ -64,13 +64,13 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-transparent"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-zinc-900 mb-1">
+          <label htmlFor="password" className="block text-sm font-medium text-stone-900 mb-1">
             Password
           </label>
           <input
@@ -78,13 +78,13 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-transparent"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="confirm-password" className="block text-sm font-medium text-zinc-900 mb-1">
+          <label htmlFor="confirm-password" className="block text-sm font-medium text-stone-900 mb-1">
             Confirm Password
           </label>
           <input
@@ -92,10 +92,10 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-transparent"
             required
           />
-          {passwordError && <p className="mt-1 text-sm text-zinc-900">{passwordError}</p>}
+          {passwordError && <p className="mt-1 text-sm text-stone-900">{passwordError}</p>}
         </div>
 
         <Button type="submit" className="w-full">
@@ -104,8 +104,8 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
       </form>
 
       <div className="mt-6 text-center text-sm">
-        <span className="text-zinc-400">Already have an account?</span>{" "}
-        <Link to="/signin" className="font-medium text-zinc-900 hover:text-zinc-700">
+        <span className="text-stone-400">Already have an account?</span>{" "}
+        <Link to="/signin" className="font-medium text-stone-900 hover:text-stone-700">
           Sign in
         </Link>
       </div>

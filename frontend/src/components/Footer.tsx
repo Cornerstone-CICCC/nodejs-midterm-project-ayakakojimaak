@@ -1,6 +1,6 @@
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-zinc-700 text-white py-8">
+    <footer className="bg-stone-700 text-white py-8">
       <div className="container mx-auto px-4 text-center">
         <p>
           Data provided by:{" "}
@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
             TheCocktailDB
           </a>
         </p>
-        <p className="mt-2">© 2023 Cocktail Explorer. All rights reserved.</p>
+        <p className="mt-2">© 2023 BITTERS Liquor Co. All rights reserved.</p>
       </div>
     </footer>
   );

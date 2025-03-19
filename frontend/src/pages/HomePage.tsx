@@ -316,7 +316,7 @@ const HomePage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-zinc-50">
+    <div className="min-h-screen bg-stone-50">
       {error && <div className="border rounded-md p-4 mb-6">{error}</div>}
       <CocktailBord cocktails={initialCocktails} />
     </div>

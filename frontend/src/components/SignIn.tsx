@@ -20,14 +20,14 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn, error }) => {
   return (
     <Card className="w-full max-w-md p-8">
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-zinc-900 mb-2">Sign In</h2>
+        <h2 className="text-3xl font-bold text-stone-900 mb-2">Sign In</h2>
       </div>
 
-      {error && <div className="mb-4 p-3 bg-zinc-100 border border-zinc-300 text-zinc-900 rounded-md">{error}</div>}
+      {error && <div className="mb-4 p-3 bg-stone-100 border border-stone-300 text-stone-900 rounded-md">{error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-1">
+          <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-1">
             Email
           </label>
           <input
@@ -35,14 +35,14 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn, error }) => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-transparent"
             required
           />
         </div>
 
         <div>
           <div className="flex items-center justify-between mb-1">
-            <label htmlFor="password" className="block text-sm font-medium text-zinc-700">
+            <label htmlFor="password" className="block text-sm font-medium text-stone-700">
               Password
             </label>
           </div>
@@ -51,7 +51,7 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn, error }) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-transparent"
             required
           />
         </div>
@@ -62,8 +62,8 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn, error }) => {
       </form>
 
       <div className="mt-6 text-center text-sm">
-        <span className="text-zinc-600">Don't have an account?</span>{" "}
-        <Link to="/signup" className="font-medium text-zinc-900 hover:text-zinc-700">
+        <span className="text-stone-600">Don't have an account?</span>{" "}
+        <Link to="/signup" className="font-medium text-stone-900 hover:text-stone-700">
           Sign up
         </Link>
       </div>

@@ -33,7 +33,7 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-lg font-bold text-white">{cocktail.strDrink}</h3>
-              <p className="text-sm text-zinc-200">{cocktail.strCategory}</p>
+              <p className="text-sm text-stone-200">{cocktail.strCategory}</p>
             </div>
           </div>
 
@@ -41,17 +41,17 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
             cocktail.strGlass ||
             (cocktail.strTags && (
               <div className="flex flex-wrap gap-1 mt-3">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100/80 text-zinc-800">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
                   {cocktail.strAlcoholic}
                 </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100/80 text-zinc-800">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
                   {cocktail.strGlass}
                 </span>
                 {cocktail.strTags &&
                   cocktail.strTags.split(",").map((tag) => (
                     <span
                       key={tag}
-                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100/80 text-zinc-800">
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
                       {tag}
                     </span>
                   ))}

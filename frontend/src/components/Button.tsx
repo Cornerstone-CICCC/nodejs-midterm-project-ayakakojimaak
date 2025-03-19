@@ -21,8 +21,8 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const variantStyles = {
-    primary: "bg-zinc-800 text-white border-transparent hover:bg-zinc-700",
-    secondary: "bg-zinc-200 text-zinc-800 border-transparent hover:bg-zinc-300",
+    primary: "bg-stone-800 text-white border-transparent hover:bg-stone-700",
+    secondary: "bg-stone-200 text-stone-800 border-transparent hover:bg-stone-300",
   };
 
   const sizeStyles = {
@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const baseStyle =
-    "rounded-md font-medium border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-opacity-50";
+    "rounded-md font-medium border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-opacity-50";
   const widthStyle = fullWidth ? "w-full" : "";
   const disabledStyle = disabled ? "opacity-50 cursor-not-allowed" : "";
 

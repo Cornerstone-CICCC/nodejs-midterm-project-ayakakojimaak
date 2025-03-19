@@ -6,18 +6,18 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-zinc-700 text-white">
-      <div className="container max-w-7xl mx-auto w-full p-2 md:p-4">
+    <header className="bg-stone-200 text-white">
+      <div className="container max-w-7xl mx-auto w-full p-2 md:p-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/">
             <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold tracking-tight">Cocktail Explorer</span>
+              <img src="/bitters.svg" alt="BITTERS Liquor Co." style={{ height: "50px" }} />
             </div>
           </Link>
           {/* Desktop menu */}
           <nav className="hidden md:flex space-x-8">
-            <div className="flex space-x-3 items-center">
+            <div className="flex space-x-3 items-center text-stone-800">
               <Link to="/favorites" className="hover:opacity-80 transition-colors duration-200 flex items-center gap-2">
                 <FaHeart />
                 Favorites
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
           {/* Mobile menu button */}
           <button
             type="button"
-            className="md:hidden p-2 rounded-md text-zinc-200 hover:text-white focus:outline-none"
+            className="md:hidden p-2 rounded-md text-stone-200 hover:text-white focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? (
               <svg
