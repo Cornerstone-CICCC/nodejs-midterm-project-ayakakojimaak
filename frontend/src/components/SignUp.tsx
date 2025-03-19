@@ -1,106 +1,115 @@
 import React, { useState } from "react";
-import Button from "./Button";
+import { Link } from "react-router-dom";
 import Card from "./Card";
+import Button from "./Button";
 
-const API_URL = import.meta.env.VITE_API_URL;
+interface SignUpProps {
+  onSignUp: (name: string, email: string, password: string) => void;
+  error?: string;
+}
 
-const SignUp: React.FC = () => {
+const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setError("");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordError("");
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setPasswordError("Passwords do not match");
       return;
     }
 
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(`${API_URL}/api/user/create`, {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "failed to sign up");
-      }
-
-      console.log(data);
-      // サインアップ成功時の処理
-    } catch (error) {
-      console.error("err:", error);
-      setError(error instanceof Error ? error.message : "failed to sign up");
-    } finally {
-      setIsLoading(false);
+    if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters long");
+      return;
     }
+
+    onSignUp(name, email, password);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md">
-        <div className="text-center mb-6">
-          <h2 className="text-3xl font-extrabold text-gray-900">Sign Up</h2>
+    <Card className="w-full max-w-md p-8">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-zinc-900 mb-2">Sign Up</h2>
+      </div>
+
+      {error && <div className="mb-4 p-3 border border-zinc-300 text-zinc-900 rounded-md">{error}</div>}
+
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-zinc-900 mb-1">
+            Name
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            required
+          />
         </div>
 
-        {error && <div className="mb-4 p-3 bg-red-50 text-red-800 rounded-md text-sm">{error}</div>}
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-zinc-900 mb-1">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            required
+          />
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <div className="mt-1">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
-              />
-            </div>
-          </div>
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-zinc-900 mb-1">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            required
+          />
+        </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <div className="mt-1">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
-              />
-            </div>
-            <p className="mt-1 text-xs text-gray-500">8 characters or more, including numbers and letters</p>
-          </div>
-          <div>
-            <Button type="submit" variant="primary" fullWidth isLoading={isLoading}>
-              Sign Up
-            </Button>
-          </div>
-        </form>
-      </Card>
-    </div>
+        <div>
+          <label htmlFor="confirm-password" className="block text-sm font-medium text-zinc-900 mb-1">
+            Confirm Password
+          </label>
+          <input
+            id="confirm-password"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            required
+          />
+          {passwordError && <p className="mt-1 text-sm text-zinc-900">{passwordError}</p>}
+        </div>
+
+        <Button type="submit" className="w-full">
+          Create Account
+        </Button>
+      </form>
+
+      <div className="mt-6 text-center text-sm">
+        <span className="text-zinc-400">Already have an account?</span>{" "}
+        <Link to="/signin" className="font-medium text-zinc-900 hover:text-zinc-700">
+          Sign in
+        </Link>
+      </div>
+    </Card>
   );
 };
 

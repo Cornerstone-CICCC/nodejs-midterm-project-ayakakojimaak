@@ -1,97 +1,73 @@
 import React, { useState } from "react";
-import Button from "./Button";
+import { Link } from "react-router-dom";
 import Card from "./Card";
+import Button from "./Button";
 
-const API_URL = import.meta.env.VITE_API_URL;
+interface SignInProps {
+  onSignIn: (email: string, password: string) => void;
+  error?: string;
+}
 
-const SignIn: React.FC = () => {
+const SignIn: React.FC<SignInProps> = ({ onSignIn, error }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setError("");
-    setIsLoading(true);
-
-    try {
-      const response = await fetch(`${API_URL}/api/user/signin`, {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "");
-      }
-
-      console.log(data);
-    } catch (error) {
-      console.error("err:", error);
-      setError(error instanceof Error ? error.message : "");
-    } finally {
-      setIsLoading(false);
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSignIn(email, password);
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md">
-        <div className="text-center mb-6">
-          <h2 className="text-3xl font-extrabold text-gray-900">Sign In</h2>
+    <Card className="w-full max-w-md p-8">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-zinc-900 mb-2">Sign In</h2>
+      </div>
+
+      {error && <div className="mb-4 p-3 bg-zinc-100 border border-zinc-300 text-zinc-900 rounded-md">{error}</div>}
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-1">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            required
+          />
         </div>
 
-        {error && <div className="mb-4 p-3 bg-red-50 text-red-800 rounded-md text-sm">{error}</div>}
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <div className="mt-1">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        <div>
+          <div className="flex items-center justify-between mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-zinc-700">
               Password
             </label>
-            <div className="mt-1">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
-              />
-            </div>
           </div>
-          <div>
-            <Button type="submit" variant="primary" fullWidth isLoading={isLoading}>
-              Sign In
-            </Button>
-          </div>
-        </form>
-      </Card>
-    </div>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-3 py-2 border border-zinc-300 rounded-md focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:border-transparent"
+            required
+          />
+        </div>
+
+        <Button type="submit" className="w-full">
+          Sign In
+        </Button>
+      </form>
+
+      <div className="mt-6 text-center text-sm">
+        <span className="text-zinc-600">Don't have an account?</span>{" "}
+        <Link to="/signup" className="font-medium text-zinc-900 hover:text-zinc-700">
+          Sign up
+        </Link>
+      </div>
+    </Card>
   );
 };
 
