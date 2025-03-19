@@ -52,7 +52,7 @@ function App() {
           }
         />
         <Route
-          path="/ingredients/:id"
+          path="/ingredient/:id"
           element={
             <Layout>
               <IngredientPage />
