@@ -12,7 +12,7 @@ const Header: React.FC = () => {
           {/* Logo */}
           <Link to="/">
             <div className="flex items-center space-x-2">
-              <img src="/bitters.svg" alt="BITTERS Liquor Co." style={{ height: "50px" }} />
+              <img src="/bitters.svg" alt="BITTERS Liquor Co." style={{ height: "40px" }} />
             </div>
           </Link>
           {/* Desktop menu */}
@@ -32,7 +32,7 @@ const Header: React.FC = () => {
           {/* Mobile menu button */}
           <button
             type="button"
-            className="md:hidden p-2 rounded-md text-stone-200 hover:text-white focus:outline-none"
+            className="md:hidden p-2 rounded-md text-stone-800 focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? (
               <svg
@@ -58,12 +58,12 @@ const Header: React.FC = () => {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-2 py-2">
+          <div className="md:hidden mt-2 py-2 text-stone-800">
             <Link to="/" className="block px-4 py-2 text-sm hover:opacity-80">
               Home
             </Link>
             <Link to="/signin" className="block px-4 py-2 text-sm hover:opacity-80 flex items-center gap-2">
-              <FaUser /> Login
+              Login
             </Link>
             <Link to="/signup" className="block px-4 py-2 text-sm hover:opacity-80">
               Sign Up
