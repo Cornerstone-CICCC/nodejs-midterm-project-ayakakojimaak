@@ -11,6 +11,9 @@ userRouter.post("/signin", (req, res) => {
 userRouter.post("/signout", (req, res) => {
     user_controller_1.userController.signOutUser(req, res);
 });
+userRouter.get("/check", (req, res) => {
+    user_controller_1.userController.checkAuth(req, res);
+});
 userRouter.put("/update/:id", (req, res) => {
     user_controller_1.userController.updateUser(req, res);
 });

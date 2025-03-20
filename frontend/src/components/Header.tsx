@@ -11,7 +11,7 @@ const Header: React.FC = () => {
       <div className="container max-w-7xl mx-auto w-full p-2 md:px-10 md:py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link to="/">
+          <Link to="/" onClick={() => setIsMenuOpen(false)}>
             <div className="flex items-center space-x-2">
               <img src="/bitters.svg" alt="BITTERS Liquor Co." style={{ height: "40px" }} />
             </div>
@@ -67,18 +67,27 @@ const Header: React.FC = () => {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-2 py-2 text-stone-800">
-            <Link to="/carts" className="block px-4 py-2 text-sm hover:opacity-80">
+            <Link to="/carts" className="block px-4 py-2 text-sm hover:opacity-80" onClick={() => setIsMenuOpen(false)}>
               Cart
             </Link>
-            <Link to="/favorites" className="block px-4 py-2 text-sm hover:opacity-80">
+            <Link
+              to="/favorites"
+              className="block px-4 py-2 text-sm hover:opacity-80"
+              onClick={() => setIsMenuOpen(false)}>
               Favorites
             </Link>
             {username ? (
-              <Link to="/profile" className="block px-4 py-2 text-sm hover:opacity-80">
+              <Link
+                to="/profile"
+                className="block px-4 py-2 text-sm hover:opacity-80"
+                onClick={() => setIsMenuOpen(false)}>
                 Profile
               </Link>
             ) : (
-              <Link to="/signin" className="block px-4 py-2 text-sm hover:opacity-80">
+              <Link
+                to="/signin"
+                className="block px-4 py-2 text-sm hover:opacity-80"
+                onClick={() => setIsMenuOpen(false)}>
                 Sign In
               </Link>
             )}

@@ -38,19 +38,27 @@ function signOutUser(req, res) {
     }
     return res.status(200).json(user);
 }
+function checkAuth(req, res) {
+    const user = user_model_1.userModel.checkAuth();
+    if (!user) {
+        return res.status(404).json({ error: "User not found" });
+    }
+    return res.status(200).json(user);
+}
 function deleteUser(req, res) {
     const { id } = req.params;
     const user = user_model_1.userModel.deleteUser(id);
     if (!user) {
         return res.status(404).json({ error: "User not found" });
     }
-    return res.status(200).json(user);
+    return res.status(200).json({ msg: "User deleted" });
 }
 exports.userController = {
     getUser,
     createUser,
     signinUser,
     signOutUser,
+    checkAuth,
     updateUser,
     deleteUser,
 };

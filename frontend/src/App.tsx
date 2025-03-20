@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useAuthStore } from "./store/authStore";
 import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
@@ -9,6 +11,12 @@ import IngredientPage from "./pages/IngredientPage";
 import ProfilePage from "./pages/ProfilePage";
 
 function App() {
+  const checkAuth = useAuthStore((state) => state.checkAuth);
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
   return (
     <Router>
       <Routes>

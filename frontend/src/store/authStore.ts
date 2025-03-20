@@ -12,6 +12,8 @@ type AuthState = {
   addFavorite: (item: string) => void;
   removeFavorite: (item: string) => void;
   signin: (email: string, password: string) => Promise<boolean>;
+  signout: () => Promise<void | string>;
+  checkAuth: () => Promise<boolean>;
 };
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -51,7 +53,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       return false; // 失敗時
     }
   },
-  logout: () => async () => {
+  signout: async () => {
     try {
       const res = await fetch("http://localhost:4500/api/user/signout", {
         method: "GET",

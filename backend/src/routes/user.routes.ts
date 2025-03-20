@@ -16,6 +16,10 @@ userRouter.post("/signout", (req: Request, res: Response) => {
   userController.signOutUser(req, res);
 });
 
+userRouter.get("/check", (req: Request, res: Response) => {
+  userController.checkAuth(req, res);
+});
+
 userRouter.put("/update/:id", (req: Request<{ id: string }, {}, User>, res: Response) => {
   userController.updateUser(req, res);
 });
