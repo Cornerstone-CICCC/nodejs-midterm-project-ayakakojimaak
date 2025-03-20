@@ -37,6 +37,9 @@ function signinUser(email, password) {
     }
     return user;
 }
+function signOutUser() {
+    return null;
+}
 function updateUser(id, user) {
     const users = readUsers();
     const userIndex = users.findIndex((user) => user.id === id);
@@ -63,6 +66,7 @@ exports.userModel = {
     createUser,
     getUserByEmail,
     signinUser,
+    signOutUser,
     updateUser,
     deleteUser,
 };

@@ -12,6 +12,10 @@ userRouter.post("/signin", (req: Request<{}, {}, User>, res: Response) => {
   userController.signinUser(req, res);
 });
 
+userRouter.post("/signout", (req: Request, res: Response) => {
+  userController.signOutUser(req, res);
+});
+
 userRouter.put("/update/:id", (req: Request<{ id: string }, {}, User>, res: Response) => {
   userController.updateUser(req, res);
 });

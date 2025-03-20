@@ -35,6 +35,14 @@ function signinUser(req: Request<{}, {}, User>, res: Response) {
   return res.status(200).json(user);
 }
 
+function signOutUser(req: Request, res: Response) {
+  const user = userModel.signOutUser();
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  return res.status(200).json(user);
+}
+
 function deleteUser(req: Request<{ id: string }>, res: Response) {
   const { id } = req.params;
   const user = userModel.deleteUser(id);
@@ -48,6 +56,7 @@ export const userController = {
   getUser,
   createUser,
   signinUser,
+  signOutUser,
   updateUser,
   deleteUser,
 };

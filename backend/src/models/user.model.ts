@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import type { User } from "../types/user";
 import fs from "fs";
 import path from "path";
+import cookieSession from "cookie-session";
 
 const filepath = path.join(__dirname, "../../");
 const userDataFilePath = path.join(filepath, "data/users.json");
@@ -38,6 +39,10 @@ function signinUser(email: string, password: string) {
   return user;
 }
 
+function signOutUser() {
+  return null;
+}
+
 function updateUser(id: string, user: User) {
   const users = readUsers();
   const userIndex = users.findIndex((user: User) => user.id === id);
@@ -66,6 +71,7 @@ export const userModel = {
   createUser,
   getUserByEmail,
   signinUser,
+  signOutUser,
   updateUser,
   deleteUser,
 };

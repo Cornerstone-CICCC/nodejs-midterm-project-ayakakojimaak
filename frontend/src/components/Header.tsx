@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { username } = useAuthStore();
   return (
     <header className="bg-stone-200 text-white">
       <div className="container max-w-7xl mx-auto w-full p-2 md:px-10 md:py-3">
@@ -24,9 +25,15 @@ const Header: React.FC = () => {
               <Link to="/favorites" className="hover:opacity-80 transition-colors duration-200">
                 <FaHeart />
               </Link>
-              <Link to="/signin" className="hover:opacity-80 transition-colors duration-200">
-                Login
-              </Link>
+              {username ? (
+                <Link to="/profile" className="hover:opacity-80 transition-colors duration-200">
+                  {username}
+                </Link>
+              ) : (
+                <Link to="/signin" className="hover:opacity-80 transition-colors duration-200">
+                  Sign In
+                </Link>
+              )}
             </div>
           </nav>
 
@@ -60,15 +67,21 @@ const Header: React.FC = () => {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-2 py-2 text-stone-800">
-            <Link to="/" className="block px-4 py-2 text-sm hover:opacity-80">
-              Home
+            <Link to="/carts" className="block px-4 py-2 text-sm hover:opacity-80">
+              Cart
             </Link>
-            <Link to="/signin" className="block px-4 py-2 text-sm hover:opacity-80 flex items-center gap-2">
-              Login
+            <Link to="/favorites" className="block px-4 py-2 text-sm hover:opacity-80">
+              Favorites
             </Link>
-            <Link to="/signup" className="block px-4 py-2 text-sm hover:opacity-80">
-              Sign Up
-            </Link>
+            {username ? (
+              <Link to="/profile" className="block px-4 py-2 text-sm hover:opacity-80">
+                Profile
+              </Link>
+            ) : (
+              <Link to="/signin" className="block px-4 py-2 text-sm hover:opacity-80">
+                Sign In
+              </Link>
+            )}
           </div>
         )}
       </div>

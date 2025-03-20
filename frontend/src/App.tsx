@@ -6,6 +6,7 @@ import SignInPage from "./pages/SignInPage";
 import CocktailPage from "./pages/CocktailPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import IngredientPage from "./pages/IngredientPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -56,6 +57,14 @@ function App() {
           element={
             <Layout>
               <IngredientPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Layout>
+              <ProfilePage />
             </Layout>
           }
         />

@@ -1,20 +1,24 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Button from "./Button";
 
-interface SignInProps {
-  onSignIn: (email: string, password: string) => void;
-  error?: string;
-}
-
-const SignIn: React.FC<SignInProps> = ({ onSignIn, error }) => {
+const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const signin = useAuthStore((state) => state.signin);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSignIn(email, password);
+    const success = await signin(email, password);
+    if (!success) {
+      alert("signin failed");
+    } else {
+      navigate("/");
+    }
   };
 
   return (
@@ -23,7 +27,7 @@ const SignIn: React.FC<SignInProps> = ({ onSignIn, error }) => {
         <h2 className="text-3xl font-bold text-stone-900 mb-2">Sign In</h2>
       </div>
 
-      {error && <div className="mb-4 p-3 bg-stone-100 border border-stone-300 text-stone-900 rounded-md">{error}</div>}
+      {/* {error && <div className="mb-4 p-3 bg-stone-100 border border-stone-300 text-stone-900 rounded-md">{error}</div>} */}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>

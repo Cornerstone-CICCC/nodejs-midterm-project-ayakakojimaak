@@ -8,6 +8,9 @@ userRouter.post("/create", user_controller_1.userController.createUser);
 userRouter.post("/signin", (req, res) => {
     user_controller_1.userController.signinUser(req, res);
 });
+userRouter.post("/signout", (req, res) => {
+    user_controller_1.userController.signOutUser(req, res);
+});
 userRouter.put("/update/:id", (req, res) => {
     user_controller_1.userController.updateUser(req, res);
 });
