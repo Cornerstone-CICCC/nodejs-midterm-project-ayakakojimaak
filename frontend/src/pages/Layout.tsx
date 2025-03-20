@@ -9,7 +9,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="min-h-screen flex flex-col bg-stone-50 text-stone-900">
       <Header />
       {isHome && <Banner />}
-      <main className="flex-grow max-w-7xl mx-auto w-full py-4 md:py-12 px-4">{children}</main>
+      <main className="flex-grow max-w-7xl mx-auto w-full p-4 md:py-12 md:px-10">{children}</main>
       <Footer />
     </div>
   );

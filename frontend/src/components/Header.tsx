@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaUser, FaHeart } from "react-icons/fa";
+import { FaHeart, FaShoppingCart } from "react-icons/fa";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header className="bg-stone-200 text-white">
-      <div className="container max-w-7xl mx-auto w-full p-2 md:p-3">
+      <div className="container max-w-7xl mx-auto w-full p-2 md:px-10 md:py-3">
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/">
@@ -16,14 +16,15 @@ const Header: React.FC = () => {
             </div>
           </Link>
           {/* Desktop menu */}
-          <nav className="hidden md:flex space-x-8">
-            <div className="flex space-x-3 items-center text-stone-800">
-              <Link to="/favorites" className="hover:opacity-80 transition-colors duration-200 flex items-center gap-2">
-                <FaHeart />
-                Favorites
+          <nav className="hidden md:flex items-center">
+            <div className="flex space-x-5 items-center text-stone-800">
+              <Link to="/carts" className="hover:opacity-80 transition-colors duration-200">
+                <FaShoppingCart />
               </Link>
-              <Link to="/signin" className="hover:opacity-80 transition-colors duration-200 flex items-center gap-2">
-                <FaUser />
+              <Link to="/favorites" className="hover:opacity-80 transition-colors duration-200">
+                <FaHeart />
+              </Link>
+              <Link to="/signin" className="hover:opacity-80 transition-colors duration-200">
                 Login
               </Link>
             </div>

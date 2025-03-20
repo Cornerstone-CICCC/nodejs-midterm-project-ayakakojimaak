@@ -37,26 +37,21 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
             </div>
           </div>
 
-          {cocktail.strAlcoholic ||
-            cocktail.strGlass ||
-            (cocktail.strTags && (
-              <div className="flex flex-wrap gap-1 mt-3">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
-                  {cocktail.strAlcoholic}
-                </span>
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
-                  {cocktail.strGlass}
-                </span>
-                {cocktail.strTags &&
-                  cocktail.strTags.split(",").map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
-                      {tag}
-                    </span>
-                  ))}
-              </div>
-            ))}
+          {cocktail.strGlass || cocktail.strTags?.length ? (
+            <div className="flex flex-wrap gap-1 mt-3">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
+                {cocktail.strGlass}
+              </span>
+              {cocktail.strTags &&
+                cocktail.strTags.split(",").map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
+                    {tag}
+                  </span>
+                ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </Link>
