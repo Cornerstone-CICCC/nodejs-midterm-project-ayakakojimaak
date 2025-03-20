@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
             TheCocktailDB
           </a>
         </p>
-        <p className="mt-2">© 2023 BITTERS Liquor Co. All rights reserved.</p>
+        <p className="mt-2">© 2025 BITTERS Liquor Co. All rights reserved.</p>
       </div>
     </footer>
   );

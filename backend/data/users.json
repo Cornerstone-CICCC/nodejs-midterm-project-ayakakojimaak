@@ -1,14 +1,9 @@
 [
   {
-    "id": 1,
-    "email": "test@test",
-    "username": "John Doe",
-    "password": "123456",
-    "role": "admin"
-  },
-  {
     "email": "test@test",
     "password": "$2b$10$uUxlA0GLPXRnpnOzZ1uipO1Z0FIe6QMwTVaQCBvREHc3rAJAojpmq",
-    "id": "d6e71c9b-cb41-496f-a854-6915bf3e5b8f"
+    "id": "d6e71c9b-cb41-496f-a854-6915bf3e5b8f",
+    "username": "test",
+    "role": "admin"
   }
 ]
