@@ -25,7 +25,7 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
           className="object-cover w-full h-full transition-all duration-300 hover:brightness-80"
         />
         <div className="absolute top-3 right-3">
-          <button onClick={handleFavoriteClick} className="text-white text-xl transition-transform">
+          <button onClick={handleFavoriteClick} className="text-white text-xl transition-transform cursor-pointer">
             {isFavorite ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
           </button>
         </div>

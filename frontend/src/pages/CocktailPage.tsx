@@ -106,9 +106,9 @@ const CocktailPage: React.FC = () => {
 
   return (
     <>
-      <div className="flex gap-3 items-center mb-4">
+      <div className="flex gap-3 items-center mb-5">
         <h1 className="text-3xl md:text-4xl font-bold text-stone-800">{cocktail.strDrink}</h1>
-        <button onClick={handleFavoriteClick} className="text-2xl transition-transform">
+        <button onClick={handleFavoriteClick} className="text-2xl transition-transform cursor-pointer">
           {isFavorite ? <FaHeart className="text-red-500" /> : <FaRegHeart className="text-stone-700" />}
         </button>
       </div>
@@ -132,12 +132,12 @@ const CocktailPage: React.FC = () => {
                   <li key={index} className="flex items-center gap-3">
                     <button
                       onClick={() => handleIngredientFavoriteClick(index)}
-                      className="ml-2 text-lg transition-colors"
+                      className="ml-2 text-lg transition-colors cursor-pointer"
                       title={item.isFavorite ? "Remove from favorites" : "Add to favorites"}>
                       {item.isFavorite ? (
                         <FaBookmark className="text-stone-500" />
                       ) : (
-                        <FaRegBookmark className="text-stone-400 hover:text-blue-500" />
+                        <FaRegBookmark className="text-stone-400" />
                       )}
                     </button>
                     <Link
