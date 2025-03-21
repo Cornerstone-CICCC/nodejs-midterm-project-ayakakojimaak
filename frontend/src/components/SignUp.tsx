@@ -2,22 +2,28 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Card from "./Card";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/authStore";
 
-interface SignUpProps {
-  onSignUp: (name: string, email: string, password: string) => void;
-  error?: string;
-}
-
-const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
+const SignUp: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const signup = useAuthStore((state) => state.signup);
+  // const checkAuth = useAuthStore((state) => state.checkAuth);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPasswordError("");
+
+    if (!(name && email && password && confirmPassword)) {
+      setError("Please fill in all fields");
+      return;
+    }
 
     if (password !== confirmPassword) {
       setPasswordError("Passwords do not match");
@@ -29,7 +35,13 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
       return;
     }
 
-    onSignUp(name, email, password);
+    const success = await signup(name, email, password);
+    if (success) {
+      // checkAuth();
+      navigate("/profile");
+    } else {
+      setError("An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -38,7 +50,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
         <h2 className="text-3xl font-bold text-stone-900 mb-2">Sign Up</h2>
       </div>
 
-      {error && <div className="mb-4 p-3 border border-stone-300 text-stone-900 rounded-md">{error}</div>}
+      {error && <div className="py-4 text-red-700 text-sm">* {error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
@@ -95,7 +107,7 @@ const SignUp: React.FC<SignUpProps> = ({ onSignUp, error }) => {
             className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-stone-500 focus:border-transparent"
             required
           />
-          {passwordError && <p className="mt-1 text-sm text-stone-900">{passwordError}</p>}
+          {passwordError && <p className="mt-1 text-sm text-red-700">* {passwordError}</p>}
         </div>
 
         <Button type="submit" className="w-full">

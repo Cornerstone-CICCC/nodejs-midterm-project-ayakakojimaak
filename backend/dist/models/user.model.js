@@ -10,41 +10,32 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const filepath = path_1.default.join(__dirname, "../../");
 const userDataFilePath = path_1.default.join(filepath, "data/users.json");
-function readUsers() {
+function getUsers() {
     const data = fs_1.default.readFileSync(userDataFilePath, "utf-8");
     return JSON.parse(data);
 }
 function createUser(user) {
-    const users = readUsers();
+    const users = getUsers();
+    const existingUser = users.find((u) => u.email === user.email);
+    if (existingUser) {
+        return null;
+    }
     const hashedPassword = bcrypt_1.default.hashSync(user.password, 10);
-    const newUser = Object.assign(Object.assign({}, user), { password: hashedPassword, id: (0, uuid_1.v4)() });
+    const newUser = Object.assign(Object.assign({}, user), { password: hashedPassword, id: (0, uuid_1.v4)(), role: "member" });
     users.push(newUser);
     fs_1.default.writeFileSync(userDataFilePath, JSON.stringify(users, null, 2));
     return newUser;
 }
 function getUserByEmail(email) {
-    const users = readUsers();
+    const users = getUsers();
     return users.find((user) => user.email === email);
 }
-function signinUser(email, password) {
-    const user = getUserByEmail(email);
-    if (!user) {
-        return null;
-    }
-    const isPasswordValid = bcrypt_1.default.compareSync(password, user.password);
-    if (!isPasswordValid) {
-        return null;
-    }
-    return user;
-}
-function signOutUser() {
-    return null;
-}
-function checkAuth() {
-    return null;
+function getUserById(id) {
+    const users = getUsers();
+    return users.find((user) => user.id === id);
 }
 function updateUser(id, user) {
-    const users = readUsers();
+    const users = getUsers();
     const userIndex = users.findIndex((user) => user.id === id);
     if (userIndex === -1) {
         return null;
@@ -55,7 +46,7 @@ function updateUser(id, user) {
     return updatedUser;
 }
 function deleteUser(id) {
-    const users = readUsers();
+    const users = getUsers();
     const userIndex = users.findIndex((user) => user.id === id);
     if (userIndex === -1) {
         return null;
@@ -65,12 +56,10 @@ function deleteUser(id) {
     return deletedUser;
 }
 exports.userModel = {
-    readUsers,
+    getUsers,
     createUser,
     getUserByEmail,
-    signinUser,
-    signOutUser,
-    checkAuth,
+    getUserById,
     updateUser,
     deleteUser,
 };

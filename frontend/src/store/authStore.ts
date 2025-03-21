@@ -11,6 +11,7 @@ type AuthState = {
   setEmail: (email: string) => void;
   addFavorite: (item: string) => void;
   removeFavorite: (item: string) => void;
+  signup: (username: string, email: string, password: string) => Promise<boolean>;
   signin: (email: string, password: string) => Promise<boolean>;
   signout: () => Promise<void | string>;
   checkAuth: () => Promise<boolean>;
@@ -32,6 +33,27 @@ export const useAuthStore = create<AuthState>((set) => ({
     set((state) => ({
       favorites: state.favorites.filter((fav) => fav !== item),
     })),
+  signup: async (username, email, password) => {
+    try {
+      const res = await fetch(`${API_URL}/api/user/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ username, email, password }),
+      });
+      if (!res.ok) {
+        throw new Error("signup failed");
+      }
+      const data = await res.json();
+      set({ username: data.username, email: data.email, role: data.role });
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
   signin: async (email, password) => {
     try {
       const res = await fetch(`${API_URL}/api/user/signin`, {
@@ -39,18 +61,18 @@ export const useAuthStore = create<AuthState>((set) => ({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
-
       if (!res.ok) {
         throw new Error("signin failed");
       }
       const data = await res.json();
       set({ username: data.username, email: data.email, role: data.role });
-      return true; // 成功時
+      return true;
     } catch (error) {
       console.error(error);
-      return false; // 失敗時
+      return false;
     }
   },
   signout: async () => {
@@ -60,9 +82,11 @@ export const useAuthStore = create<AuthState>((set) => ({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
       if (res.ok) {
         set({ username: null, email: null, role: null });
+        window.location.href = "/";
       }
     } catch (error) {
       console.error(error);
@@ -75,17 +99,18 @@ export const useAuthStore = create<AuthState>((set) => ({
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
-
       if (!res.ok) {
-        throw new Error("Not logged in");
+        console.error("error checking auth");
+        return false;
       }
       const data = await res.json();
       set({ username: data.username, email: data.email, role: data.role });
-      return true; // ログイン中
+      return true;
     } catch (error) {
       console.error(error);
-      return false; // 未ログイン
+      return false;
     }
   },
 }));

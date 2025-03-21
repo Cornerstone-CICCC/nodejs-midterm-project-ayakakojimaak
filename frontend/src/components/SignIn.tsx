@@ -8,16 +8,19 @@ import Button from "./Button";
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const signin = useAuthStore((state) => state.signin);
+  // const checkAuth = useAuthStore((state) => state.checkAuth);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await signin(email, password);
-    if (!success) {
-      alert("signin failed");
+    if (success) {
+      // checkAuth();
+      navigate("/profile");
     } else {
-      navigate("/");
+      setError("Invalid email or password");
     }
   };
 
@@ -27,7 +30,7 @@ const SignIn: React.FC = () => {
         <h2 className="text-3xl font-bold text-stone-900 mb-2">Sign In</h2>
       </div>
 
-      {/* {error && <div className="mb-4 p-3 bg-stone-100 border border-stone-300 text-stone-900 rounded-md">{error}</div>} */}
+      {error && <div className="py-4 text-red-700">* {error}</div>}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
