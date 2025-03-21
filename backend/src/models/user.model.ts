@@ -12,7 +12,7 @@ function getUsers() {
   return JSON.parse(data);
 }
 
-function createUser(user: Omit<User, "id">) {
+function createUser(user: User) {
   const users = getUsers();
   const existingUser = users.find((u: User) => u.email === user.email);
   if (existingUser) {
@@ -37,11 +37,18 @@ function getUserById(id: string) {
 
 function updateUser(id: string, user: User) {
   const users = getUsers();
-  const userIndex = users.findIndex((user: User) => user.id === id);
-  if (userIndex === -1) {
+  const oldUser = getUserById(id);
+  if (!user) {
     return null;
   }
-  const updatedUser = { ...user, id };
+  const updatedUser = {
+    username: user.username ? user.username : oldUser.username,
+    email: user.email ? user.email : oldUser.email,
+    password: oldUser.password,
+    role: oldUser.role,
+    id: id,
+  };
+  const userIndex = users.findIndex((user: User) => user.id === id);
   users[userIndex] = updatedUser;
   fs.writeFileSync(userDataFilePath, JSON.stringify(users, null, 2));
   return updatedUser;

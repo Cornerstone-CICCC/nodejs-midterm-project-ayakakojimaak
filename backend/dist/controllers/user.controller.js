@@ -7,16 +7,23 @@ exports.userController = void 0;
 const user_model_1 = require("../models/user.model");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 function createUser(req, res) {
-    const reqBody = req.body;
-    const user = user_model_1.userModel.createUser(reqBody);
+    const user = user_model_1.userModel.createUser(req.body);
     if (!user) {
         res.status(400).json({ error: "User not created" });
         return;
     }
+    if (req.session) {
+        req.session.id = user.id;
+        req.session.isLoggedIn = true;
+    }
     res.status(200).json({ msg: "User created" });
 }
 function updateUser(req, res) {
-    const { id } = req.params;
+    if (!req.session) {
+        res.status(401).json({ error: "Unauthorized" });
+        return;
+    }
+    const id = req.session.id;
     const user = user_model_1.userModel.updateUser(id, req.body);
     if (!user) {
         res.status(404).json({ error: "User not found" });
@@ -44,7 +51,6 @@ function signinUser(req, res) {
         req.session.id = user.id;
         req.session.isLoggedIn = true;
     }
-    console.log(req.session);
     res.status(200).json({ msg: "User signed in" });
 }
 function signOutUser(req, res) {
@@ -68,7 +74,11 @@ function checkAuth(req, res) {
     }
 }
 function deleteUser(req, res) {
-    const { id } = req.params;
+    if (!req.session) {
+        res.status(401).json({ error: "Unauthorized" });
+        return;
+    }
+    const id = req.session.id;
     const user = user_model_1.userModel.deleteUser(id);
     if (!user) {
         res.status(404).json({ error: "User not found" });

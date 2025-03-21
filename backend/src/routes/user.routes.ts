@@ -4,15 +4,15 @@ import { userController } from "../controllers/user.controller";
 
 const userRouter = Router();
 
-userRouter.post("/create", (req: Request<{}, {}, Omit<User, "id">>, res: Response) => {
-  userController.createUser;
+userRouter.post("/create", (req: Request<{}, {}, User>, res: Response) => {
+  userController.createUser(req, res);
 });
 
-userRouter.put("/update/:id", (req: Request<{ id: string }, {}, User>, res: Response) => {
+userRouter.put("/update", (req: Request<{}, {}, User>, res: Response) => {
   userController.updateUser(req, res);
 });
 
-userRouter.delete("/delete/:id", (req: Request<{ id: string }>, res: Response) => {
+userRouter.delete("/delete/:id", (req: Request, res: Response) => {
   userController.deleteUser(req, res);
 });
 

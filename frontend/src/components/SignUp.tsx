@@ -14,7 +14,7 @@ const SignUp: React.FC = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const signup = useAuthStore((state) => state.signup);
-  // const checkAuth = useAuthStore((state) => state.checkAuth);
+  const checkAuth = useAuthStore((state) => state.checkAuth);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ const SignUp: React.FC = () => {
 
     const success = await signup(name, email, password);
     if (success) {
-      // checkAuth();
+      checkAuth();
       navigate("/profile");
     } else {
       setError("An error occurred. Please try again.");

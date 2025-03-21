@@ -36,11 +36,18 @@ function getUserById(id) {
 }
 function updateUser(id, user) {
     const users = getUsers();
-    const userIndex = users.findIndex((user) => user.id === id);
-    if (userIndex === -1) {
+    const oldUser = getUserById(id);
+    if (!user) {
         return null;
     }
-    const updatedUser = Object.assign(Object.assign({}, user), { id });
+    const updatedUser = {
+        username: user.username ? user.username : oldUser.username,
+        email: user.email ? user.email : oldUser.email,
+        password: oldUser.password,
+        role: oldUser.role,
+        id: id,
+    };
+    const userIndex = users.findIndex((user) => user.id === id);
     users[userIndex] = updatedUser;
     fs_1.default.writeFileSync(userDataFilePath, JSON.stringify(users, null, 2));
     return updatedUser;

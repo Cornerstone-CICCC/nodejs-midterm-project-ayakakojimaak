@@ -11,13 +11,13 @@ const SignIn: React.FC = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const signin = useAuthStore((state) => state.signin);
-  // const checkAuth = useAuthStore((state) => state.checkAuth);
+  const checkAuth = useAuthStore((state) => state.checkAuth);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const success = await signin(email, password);
     if (success) {
-      // checkAuth();
+      checkAuth();
       navigate("/profile");
     } else {
       setError("Invalid email or password");

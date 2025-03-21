@@ -37,7 +37,7 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
             </div>
           </div>
 
-          {cocktail.strGlass || cocktail.strTags?.length ? (
+          {/* s{cocktail.strGlass || cocktail.strTags?.length ? (
             <div className="flex flex-wrap gap-1 mt-3">
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-stone-100/80 text-stone-800">
                 {cocktail.strGlass}
@@ -51,7 +51,7 @@ const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
                   </span>
                 ))}
             </div>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     </Link>

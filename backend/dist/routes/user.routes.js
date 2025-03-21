@@ -4,9 +4,9 @@ const express_1 = require("express");
 const user_controller_1 = require("../controllers/user.controller");
 const userRouter = (0, express_1.Router)();
 userRouter.post("/create", (req, res) => {
-    user_controller_1.userController.createUser;
+    user_controller_1.userController.createUser(req, res);
 });
-userRouter.put("/update/:id", (req, res) => {
+userRouter.put("/update", (req, res) => {
     user_controller_1.userController.updateUser(req, res);
 });
 userRouter.delete("/delete/:id", (req, res) => {

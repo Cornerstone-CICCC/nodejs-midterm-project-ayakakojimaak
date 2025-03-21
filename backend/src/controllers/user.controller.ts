@@ -3,18 +3,25 @@ import type { User } from "../types/user";
 import { userModel } from "../models/user.model";
 import bcrypt from "bcrypt";
 
-function createUser(req: Request<{}, {}, Omit<User, "id">>, res: Response) {
-  const reqBody = req.body;
-  const user = userModel.createUser(reqBody);
+function createUser(req: Request<{}, {}, User>, res: Response) {
+  const user = userModel.createUser(req.body);
   if (!user) {
     res.status(400).json({ error: "User not created" });
     return;
   }
+  if (req.session) {
+    req.session.id = user.id;
+    req.session.isLoggedIn = true;
+  }
   res.status(200).json({ msg: "User created" });
 }
 
-function updateUser(req: Request<{ id: string }, {}, User>, res: Response) {
-  const { id } = req.params;
+function updateUser(req: Request<{}, {}, User>, res: Response) {
+  if (!req.session) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+  const id = req.session.id;
   const user = userModel.updateUser(id, req.body);
   if (!user) {
     res.status(404).json({ error: "User not found" });
@@ -43,7 +50,6 @@ function signinUser(req: Request<{}, {}, Partial<User>>, res: Response) {
     req.session.id = user.id;
     req.session.isLoggedIn = true;
   }
-  console.log(req.session);
   res.status(200).json({ msg: "User signed in" });
 }
 
@@ -68,8 +74,12 @@ function checkAuth(req: Request, res: Response) {
   }
 }
 
-function deleteUser(req: Request<{ id: string }>, res: Response) {
-  const { id } = req.params;
+function deleteUser(req: Request, res: Response) {
+  if (!req.session) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+  const id = req.session.id;
   const user = userModel.deleteUser(id);
   if (!user) {
     res.status(404).json({ error: "User not found" });
