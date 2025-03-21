@@ -1,0 +1,50 @@
+[
+  {
+    "id": "comment-1",
+    "cocktailId": "11014",
+    "authorId": "user-123",
+    "authorName": "John Doe",
+    "text": "A classic for a reason. Smooth and creamy, with a delightful chocolatey finish. Perfect for a dessert cocktail.",
+    "rate": 5
+  },
+  {
+    "id": "comment-2",
+    "cocktailId": "11014",
+    "authorId": "user-456",
+    "authorName": "Jane Smith",
+    "text": "I found it a bit too sweet for my taste, but the texture was lovely. Maybe a less sugary cream would be better.",
+    "rate": 3
+  },
+  {
+    "id": "comment-3",
+    "cocktailId": "11014",
+    "authorId": "user-789",
+    "authorName": "David Lee",
+    "text": "This cocktail is a great after-dinner treat. The nutmeg on top adds a nice spice note. Definitely recommend!",
+    "rate": 4
+  },
+  {
+    "id": "comment-4",
+    "cocktailId": "11014",
+    "authorId": "user-101",
+    "authorName": "Sarah Jones",
+    "text": "The balance of gin, crème de cacao, and cream is perfect. It's like a liquid chocolate dessert. I'm hooked!",
+    "rate": 5
+  },
+  {
+    "id": "comment-5",
+    "cocktailId": "11014",
+    "authorId": "user-112",
+    "authorName": "Michael Brown",
+    "text": "It was alright, but I expected more. It lacked a bit of the 'wow' factor. Not bad, but not amazing either.",
+    "rate": 3
+  },
+  {
+    "id": "9f3e2497-0c77-42cb-aeb2-e4137ed86605",
+    "cocktailId": "11014",
+    "authorId": "d6e71c9b-cb41-496f-a854-6915bf3e5b8f",
+    "authorName": "test",
+    "rate": 5,
+    "text": "test"
+  }
+]

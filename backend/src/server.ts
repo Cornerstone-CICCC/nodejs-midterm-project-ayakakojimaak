@@ -3,6 +3,7 @@ import cookieSession from "cookie-session";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.routes";
+import commentRouter from "./routes/comment.routes";
 dotenv.config();
 
 const app = express();
@@ -34,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api/user", userRouter);
+app.use("/api/comments", commentRouter);
 
 // Start server
 const PORT = process.env.PORT || 3000;

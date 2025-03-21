@@ -17,9 +17,6 @@ const Profile: React.FC = () => {
     if (email) setNewEmail(email);
   }, [username, email]);
 
-  const handleSave = () => {
-    // APIを呼んでデータを更新する処理
-  };
   return (
     <div className="max-w-3xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">Profile</h2>
@@ -52,23 +49,18 @@ const Profile: React.FC = () => {
             <label className="block p-2 text-gray-700 h-10">{newEmail}</label>
           )}
           <button onClick={() => setIsEditingEmail(!isEditingEmail)} className="text-stone-500 cursor-pointer">
-            {isEditingEmail ? (
-              <FaCheck
-                size={12}
-                onClick={() => {
-                  console.log(newEmail);
-                  updateEmail(newEmail);
-                }}
-              />
-            ) : (
-              <FaPen size={12} />
-            )}
+            {isEditingEmail ? <FaCheck size={12} onClick={() => updateEmail(newEmail)} /> : <FaPen size={12} />}
           </button>
         </div>
-        <Button onClick={signout} className="mt-10 flex items-center text-stone-500 cursor-pointer gap-2">
-          <FaSignOutAlt />
-          <span>Sign Out</span>
-        </Button>
+        <div className="mt-10 flex items-center gap-2">
+          <Button onClick={signout} className="flex items-center gap-2">
+            <FaSignOutAlt />
+            <span>Sign Out</span>
+          </Button>
+          {/* <Button onClick={signout} className="bg-red-600">
+            <span>Delete Account</span>
+          </Button> */}
+        </div>
       </div>
 
       <h3 className="text-xl font-semibold mb-3">Favorites</h3>

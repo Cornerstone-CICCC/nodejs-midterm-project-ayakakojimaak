@@ -2,69 +2,48 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Cocktail } from "../types/Cocktail";
 import { FaHeart, FaRegHeart, FaTrashAlt, FaStar, FaBookmark, FaRegBookmark } from "react-icons/fa";
+import type { Comment } from "../types/Comment";
+import { useCommentStore } from "../store/commentStore";
+import { useAuthStore } from "../store/authStore";
+import Button from "../components/Button";
 
 const CocktailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [error, setError] = useState<string | null>(null);
   const [cocktail, setCocktail] = useState<Cocktail | null>(null);
   const [ingredients, setIngredients] = useState<{ name: string; measure: string; isFavorite: boolean }[]>([]);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(true); // Dummy admin status
-  const [reviews, setReviews] = useState([
-    {
-      id: 1,
-      author: "John Doe",
-      rating: 5,
-      comment: "The perfect martini! Clean, crisp and elegant.",
-      date: "2023-05-15",
-    },
-    {
-      id: 2,
-      author: "Emma Wilson",
-      rating: 4,
-      comment: "Very refreshing! I added a bit more lime and it was perfect.",
-      date: "2023-06-02",
-    },
-    {
-      id: 3,
-      author: "Michael Brown",
-      rating: 5,
-      comment: "My go-to cocktail for summer evenings. Absolutely delicious!",
-      date: "2023-06-20",
-    },
-  ]);
-  const [newReview, setNewReview] = useState({ rating: 5, comment: "" });
+  const [newReview, setNewReview] = useState({ rate: 5, comment: "" });
+  const { role } = useAuthStore();
+
+  const comments = useCommentStore((state) => state.comments);
+  const getCommentsByCocktailId = useCommentStore((state) => state.getCommentsByCocktailId);
+  const addComment = useCommentStore((state) => state.addComment);
 
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
     // お気に入り状態をサーバーに保存
   };
 
-  const handleIngredientFavoriteClick = (index: number) => {
-    const updatedIngredients = [...ingredients];
-    updatedIngredients[index].isFavorite = !updatedIngredients[index].isFavorite;
-    setIngredients(updatedIngredients);
-    // In a real app, save favorite ingredients to backend/localStorage
-  };
-
-  const handleDeleteReview = (reviewId: number) => {
-    setReviews(reviews.filter((review) => review.id !== reviewId));
-    // In a real app, you would also delete from the backend
-  };
-
-  const handleSubmitReview = (e: React.FormEvent) => {
+  const handleAddComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (newReview.comment.trim()) {
-      const review = {
-        id: Date.now(),
-        author: "Current User",
-        rating: newReview.rating,
-        comment: newReview.comment,
-        date: new Date().toISOString().split("T")[0],
-      };
-      setReviews([review, ...reviews]);
-      setNewReview({ rating: 5, comment: "" });
+    if (!newReview.rate || !newReview.comment) {
+      setError("Please fill in all fields");
+      return;
     }
+    if (id) {
+      addComment(id, newReview.comment, newReview.rate);
+      getCommentsByCocktailId(id);
+    }
+    //form reset
+    setNewReview({ rate: 5, comment: "" });
   };
+  // get comments by cocktail id
+  useEffect(() => {
+    if (id) {
+      getCommentsByCocktailId(id);
+    }
+  }, [id]);
 
   useEffect(() => {
     const fetchCocktail = async () => {
@@ -131,7 +110,7 @@ const CocktailPage: React.FC = () => {
                 {ingredients.map((item, index) => (
                   <li key={index} className="flex items-center gap-3">
                     <button
-                      onClick={() => handleIngredientFavoriteClick(index)}
+                      // onClick={() => handleIngredientFavoriteClick(index)}
                       className="ml-2 text-lg transition-colors cursor-pointer"
                       title={item.isFavorite ? "Remove from favorites" : "Add to favorites"}>
                       {item.isFavorite ? (
@@ -158,77 +137,82 @@ const CocktailPage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Review Section */}
       <div className="mt-12">
         {/* Reviews List */}
         <div className="space-y-6 py-8">
-          {reviews.length === 0 ? (
+          {comments.length === 0 ? (
             <p className="text-stone-500 italic">No reviews yet. Be the first to review!</p>
           ) : (
-            reviews.map((review) => (
-              <div key={review.id} className="pb-6">
+            comments.map((comment: Comment) => (
+              <div key={comment.id} className="pb-6">
                 <div className="flex justify-between items-start">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-medium">{review.author}</span>
-                      <span className="text-stone-400 text-sm">{review.date}</span>
+                      <span className="font-medium">{comment.authorName}</span>
                     </div>
                     <div className="flex text-yellow-400 mb-2">
                       {[...Array(5)].map((_, i) => (
-                        <FaStar key={i} className={i < review.rating ? "text-yellow-400" : "text-stone-300"} />
+                        <FaStar key={i} className={i < comment.rate ? "text-yellow-400" : "text-stone-300"} />
                       ))}
                     </div>
                   </div>
-                  {isAdmin && (
+                  {role === "admin" && (
                     <button
-                      onClick={() => handleDeleteReview(review.id)}
-                      className="text-stone-400 hover:text-stone-500 transition"
+                      // onClick={() => handleDeleteReview(comment.id)}
+                      className="text-stone-400 hover:text-stone-500 transition cursor-pointer"
                       title="Delete review">
                       <FaTrashAlt />
                     </button>
                   )}
                 </div>
-                <p className="text-stone-700">{review.comment}</p>
+                <p className="text-stone-700">{comment.text}</p>
               </div>
             ))
           )}
         </div>
         {/* Review Form */}
-        <div className="mb-8 bg-white p-6 rounded-lg ">
-          <h3 className="text-lg font-medium mb-4">Write a Review</h3>
-          <form onSubmit={handleSubmitReview}>
-            <div className="mb-4">
-              <label className="block text-stone-700 mb-2">Rating</label>
-              <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    onClick={() => setNewReview({ ...newReview, rating: star })}
-                    className="text-xl focus:outline-none">
-                    <FaStar className={star <= newReview.rating ? "text-yellow-400" : "text-stone-300"} />
-                  </button>
-                ))}
+        {role ? (
+          <div className="mb-8 bg-white p-6 rounded-lg ">
+            <h3 className="text-lg font-medium mb-4">Write a Review</h3>
+            <form onSubmit={(e) => handleAddComment(e)}>
+              <div className="mb-4">
+                <label className="block text-stone-700 mb-2">Rating</label>
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setNewReview({ ...newReview, rate: star })}
+                      className="text-xl focus:outline-none cursor-pointer">
+                      <FaStar className={star <= newReview.rate ? "text-yellow-400" : "text-stone-300"} />
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="mb-4">
-              <label htmlFor="comment" className="block text-stone-700 mb-2">
-                Your Review
-              </label>
-              <textarea
-                id="comment"
-                rows={4}
-                className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={newReview.comment}
-                onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
-                placeholder="Share your experience with this cocktail..."></textarea>
-            </div>
-            <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
-              Submit Review
-            </button>
-          </form>
-        </div>
+              <div className="mb-4">
+                <label htmlFor="comment" className="block text-stone-700 mb-2">
+                  Comment
+                </label>
+                <textarea
+                  id="comment"
+                  rows={4}
+                  className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={newReview.comment}
+                  onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+                  placeholder="Share your experience with this cocktail..."></textarea>
+              </div>
+              {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+              <Button type="submit">Submit Review</Button>
+            </form>
+          </div>
+        ) : (
+          <div className="bg-white p-6 rounded-lg text-center">
+            <p className="text-stone-500">Please sign in to write a review</p>
+            <Link to="/signin" className="text-stone-700 hover:text-stone-600 transition mt-2 block">
+              Sign In
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );

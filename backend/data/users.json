@@ -7,10 +7,10 @@
     "id": "d6e71c9b-cb41-496f-a854-6915bf3e5b8f"
   },
   {
-    "name": "Jane",
-    "email": "jane@test",
-    "password": "$2b$10$hFZSV96f1lXo7K7ycgi3k.Fx/cxlWPQ7PSUpywx9aZCLWL15PEjrS",
-    "id": "58683cd5-8536-4480-bb56-84e32617ebd0",
+    "username": "Jane",
+    "email": "jane@sample",
+    "password": "$2b$10$pGCZMjtzwD9DUnxuEXGFyeVBBgu2aS1kgIFIvwkkfkRmyKcYCdgli",
+    "id": "47ea31b7-ba88-42a3-a21a-b80e3caecf12",
     "role": "member"
   }
 ]

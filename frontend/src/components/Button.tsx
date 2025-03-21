@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const baseStyle =
-    "rounded-md font-medium border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-opacity-50";
+    "rounded-md font-medium border transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-stone-400 focus:ring-opacity-50 cursor-pointer";
   const widthStyle = fullWidth ? "w-full" : "";
   const disabledStyle = disabled ? "opacity-50 cursor-not-allowed" : "";
 
