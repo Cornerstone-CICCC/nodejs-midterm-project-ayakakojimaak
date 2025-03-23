@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const banners = {
-  small: ["/banner/c/01.png", "/banner/small/02.png", "/banner/small/03.png"],
+  small: ["/banner/small/01.png", "/banner/small/02.png", "/banner/small/03.png"],
   large: ["/banner/large/01.png", "/banner/large/02.png", "/banner/large/03.png"],
 };
 

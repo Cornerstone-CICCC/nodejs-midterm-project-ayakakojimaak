@@ -255,7 +255,7 @@ const CocktailPage: React.FC = () => {
                   <textarea
                     rows={4}
                     className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={editedReview.comment}
+                    defaultValue={comment.text}
                     onChange={(e) => setEditedReview({ ...editedReview, comment: e.target.value })}
                     placeholder="Share your experience with this cocktail..."></textarea>
                 ) : (
