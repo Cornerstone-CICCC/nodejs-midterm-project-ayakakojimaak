@@ -1,0 +1,200 @@
+[
+  {
+    "id": "your_unique_id_for_this_review_1",
+    "cocktailId": "11014",
+    "cocktailName": "Alexander",
+    "authorId": "a7b3c9d1e5f2",
+    "authorName": "Emily Carter",
+    "rate": 4,
+    "text": "The Alexander is a creamy and decadent cocktail, perfect for a dessert drink. The blend of gin, creme de cacao, and light cream creates a smooth and rich texture. The nutmeg garnish adds a lovely aromatic touch. It's a classic for a reason, though it might be a bit heavy for some palates. A solid choice for those who enjoy creamy cocktails."
+  },
+  {
+    "id": "your_unique_id_for_this_review_2",
+    "cocktailId": "11001",
+    "cocktailName": "Old Fashioned",
+    "authorId": "2f8a1b9c5e4d",
+    "authorName": "Michael Rodriguez",
+    "rate": 5,
+    "text": "The Old Fashioned is a timeless classic, and for good reason. The balance of bourbon, bitters, and sugar is perfect. The orange twist and cherry garnish add a touch of sophistication. It's a simple drink, but when made well, it's incredibly satisfying. A must-try for any whiskey lover."
+  },
+  {
+    "id": "your_unique_id_for_this_review_3",
+    "cocktailId": "11000",
+    "cocktailName": "Mojito",
+    "authorId": "9e6d4c1b2a3f",
+    "authorName": "Sophia Williams",
+    "rate": 5,
+    "text": "The Mojito is a refreshing and vibrant cocktail, perfect for a hot day. The muddled mint and lime create a bright and zesty flavor, while the rum adds a smooth sweetness. The soda water adds a light and bubbly finish. It's a classic for a reason, and a must-try for anyone who loves a refreshing drink."
+  },
+  {
+    "id": "your_unique_id_for_this_review_4",
+    "cocktailId": "11005",
+    "cocktailName": "Dry Martini",
+    "authorId": "5c2b9a1d8e6f",
+    "authorName": "David Garcia",
+    "rate": 4,
+    "text": "The Dry Martini is a sophisticated and elegant cocktail. The gin and dry vermouth create a crisp and clean flavor, while the olive adds a savory touch. It's a classic for a reason, though it might be an acquired taste for some. A solid choice for those who appreciate a strong and dry cocktail."
+  },
+  {
+    "id": "your_unique_id_for_this_review_5",
+    "cocktailId": "17196",
+    "cocktailName": "Cosmopolitan",
+    "authorId": "1f6e8d2c9b3a",
+    "authorName": "Olivia Martinez",
+    "rate": 4,
+    "text": "The Cosmopolitan is a fruity and refreshing cocktail. The blend of vodka, lime juice, Cointreau, and cranberry juice creates a sweet and tart flavor. The lime wheel garnish adds a touch of elegance. It's a popular choice for a reason, and a great option for those who enjoy a fruity and light cocktail."
+  },
+  {
+    "id": "your_unique_id_for_this_review_6",
+    "cocktailId": "11403",
+    "cocktailName": "Gin And Tonic",
+    "authorId": "7d3a5b6c1f9e",
+    "authorName": "James Anderson",
+    "rate": 5,
+    "text": "The Gin and Tonic is a simple yet classic cocktail. The gin and tonic water create a crisp and refreshing flavor, while the lime wedge adds a touch of citrus. It's a perfect drink for a warm day, and a great option for those who enjoy a light and refreshing cocktail."
+  },
+  {
+    "id": "your_unique_id_for_this_review_7",
+    "cocktailId": "11009",
+    "cocktailName": "Moscow Mule",
+    "authorId": "3b9c1a5d8e2f",
+    "authorName": "Ava Thomas",
+    "rate": 5,
+    "text": "The Moscow Mule is a refreshing and zesty cocktail. The combination of vodka, lime juice, and ginger ale creates a spicy and tangy flavor. Served in a copper mug, it's both visually appealing and delicious. A perfect choice for any occasion."
+  },
+  {
+    "id": "your_unique_id_for_this_review_8",
+    "cocktailId": "11007",
+    "cocktailName": "Margarita",
+    "authorId": "6e1f9d2a3c5b",
+    "authorName": "William Jackson",
+    "rate": 5,
+    "text": "The Margarita is a classic and vibrant cocktail. The tequila, triple sec, and lime juice create a perfect balance of sweet and sour. The salted rim adds a nice savory touch. It's a versatile drink that can be enjoyed on the rocks or blended, and a must-try for any tequila lover."
+  },
+  {
+    "id": "your_unique_id_for_this_review_9",
+    "cocktailId": "13621",
+    "cocktailName": "Tequila Sunrise",
+    "authorId": "8a2b5c6d9e1f",
+    "authorName": "Isabella White",
+    "rate": 4,
+    "text": "The Tequila Sunrise is a visually appealing and sweet cocktail. The tequila, orange juice, and grenadine create a beautiful layered effect and a fruity flavor. It's a great drink for a brunch or a casual gathering. While sweet, it's a pleasant and easy-to-drink cocktail."
+  },
+  {
+    "id": "your_unique_id_for_this_review_10",
+    "cocktailId": "11008",
+    "cocktailName": "Manhattan",
+    "authorId": "4c5d1e6f9a2b",
+    "authorName": "Alexander Harris",
+    "rate": 5,
+    "text": "The Manhattan is a sophisticated and classic cocktail. The blend of sweet vermouth, bourbon, and Angostura bitters creates a rich and complex flavor. The cherry and orange peel garnish adds a touch of elegance. It's a perfect drink for a cold evening, and a must-try for any whiskey enthusiast."
+  },
+  {
+    "id": "your_unique_id_for_this_review_11",
+    "cocktailId": "17194",
+    "cocktailName": "White Lady",
+    "authorId": "9b3a5c1d6e8f",
+    "authorName": "Charlotte Martin",
+    "rate": 4,
+    "text": "The White Lady is a crisp and refreshing cocktail. The gin, triple sec, and lemon juice create a balanced sweet and sour flavor. It's a light and elegant drink, perfect for an aperitif. The simple ingredients make it easy to prepare, and a great option for a classic cocktail."
+  },
+  {
+    "id": "your_unique_id_for_this_review_12",
+    "cocktailId": "11121",
+    "cocktailName": "Bobby Burns Cocktail",
+    "authorId": "5f8e2d9c1b3a",
+    "authorName": "Benjamin Thompson",
+    "rate": 4,
+    "text": "The Bobby Burns Cocktail is a warm and complex drink. The Scotch, sweet vermouth, and Benedictine create a rich and herbal flavor. The lemon peel adds a nice citrus note. It's a great choice for a cold evening, and a unique twist on a classic cocktail."
+  },
+  {
+    "id": "your_unique_id_for_this_review_13",
+    "cocktailId": "12758",
+    "cocktailName": "Gagliardo",
+    "authorId": "1a6b9c5d8e2f",
+    "authorName": "Mia Garcia",
+    "rate": 3,
+    "text": "The Gagliardo is an interesting and unique cocktail."
+  },
+  {
+    "id": "3ecb855f-a508-4f9f-8c67-918bb5a6221f",
+    "cocktailId": "11014",
+    "cocktailName": "Alexander",
+    "authorId": "1fd685d5-324e-4675-86b2-b0cf179eeec0",
+    "authorName": "Jane",
+    "rate": 5,
+    "text": "Absolutely loved the Alexander! It's a perfect blend of sweet and smooth. The quality of the ingredients really shines through. It's a sophisticated and delicious cocktail, perfect for a special occasion."
+  },
+  {
+    "id": "your_unique_id_for_this_review_1",
+    "cocktailId": "11014",
+    "cocktailName": "Alexander",
+    "authorId": "a7b3c9d1e5f2",
+    "authorName": "Emily Carter",
+    "rate": 4,
+    "text": "The Alexander is a creamy and decadent cocktail, perfect for a dessert drink. The blend of gin, creme de cacao, and light cream creates a smooth and rich texture. The nutmeg garnish adds a lovely aromatic touch. It's a classic for a reason, though it might be a bit heavy for some palates. A solid choice for those who enjoy creamy cocktails."
+  },
+  {
+    "id": "your_unique_id_for_this_review_15",
+    "cocktailId": "11014",
+    "cocktailName": "Alexander",
+    "authorId": "b8c4d2e6f1a3",
+    "authorName": "Olivia Brown",
+    "rate": 5,
+    "text": "This Alexander cocktail was exquisite! The smooth blend of gin, chocolate, and cream was perfectly balanced. It's like a liquid dessert, and the nutmeg on top added a wonderful spice. Highly recommend for a luxurious treat."
+  },
+  {
+    "id": "your_unique_id_for_this_review_16",
+    "cocktailId": "11014",
+    "cocktailName": "Alexander",
+    "authorId": "c9d5e3f7a2b4",
+    "authorName": "Ethan Davis",
+    "rate": 3,
+    "text": "I found the Alexander to be a bit too rich for my taste. The creaminess was overwhelming, and the sweetness was a bit much. It's not a bad cocktail, but definitely not something I could drink often. If you have a sweet tooth, you might enjoy it."
+  },
+  {
+    "id": "your_unique_id_for_this_review_17",
+    "cocktailId": "11014",
+    "cocktailName": "Alexander",
+    "authorId": "d1e6f4a8b3c5",
+    "authorName": "Sophia Wilson",
+    "rate": 4,
+    "text": "The Alexander is a delightful, smooth cocktail. It's a great after-dinner drink, almost like a liquid dessert. The chocolate and cream flavors are very present, and the gin adds a nice little kick. I enjoyed it, but it's very filling."
+  },
+  {
+    "id": "your_unique_id_for_this_review_18",
+    "cocktailId": "11014",
+    "cocktailName": "Alexander",
+    "authorId": "e2f7a5b9c4d6",
+    "authorName": "Liam Garcia",
+    "rate": 5,
+    "text": "Absolutely loved the Alexander! It's a perfect blend of sweet and smooth. The quality of the ingredients really shines through. It's a sophisticated and delicious cocktail, perfect for a special occasion."
+  },
+  {
+    "id": "6771e3f8-48b3-4651-91ce-e86fe7b0c467",
+    "cocktailId": "11009",
+    "cocktailName": "Moscow Mule",
+    "authorId": "1fd685d5-324e-4675-86b2-b0cf179eeec0",
+    "authorName": "Jane",
+    "rate": 5,
+    "text": "I'm a big fan of the Moscow Mule. It's so simple, yet so delicious. The balance of flavors is just right—not too sweet, not too tart. The ginger beer gives it a nice kick, and the lime adds a bright, citrusy note. It's my go-to drink when I want something light and flavorful."
+  },
+  {
+    "id": "4dcc65a3-ec8c-4759-a7d7-038a807cd493",
+    "cocktailId": "17196",
+    "cocktailName": "Cosmopolitan",
+    "authorId": "1fd685d5-324e-4675-86b2-b0cf179eeec0",
+    "authorName": "Jane",
+    "rate": 5,
+    "text": "I'm a big fan of the Moscow Mule. It's so simple, yet so delicious. The balance of flavors is just right—not too sweet, not too tart. The ginger beer gives it a nice kick, and the lime adds a bright, citrusy note. It's my go-to drink when I want something light and flavorful."
+  },
+  {
+    "id": "1a5e2375-81f3-425c-97df-76242fcf2f70",
+    "cocktailId": "12714",
+    "cocktailName": "Kiwi Papaya Smoothie",
+    "authorId": "1fd685d5-324e-4675-86b2-b0cf179eeec0",
+    "authorName": "Jane",
+    "rate": 4,
+    "text": "This smoothie was pretty average. It was refreshing enough, and the texture was fine, but the taste was a bit bland."
+  }
+]
