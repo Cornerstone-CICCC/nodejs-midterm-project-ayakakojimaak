@@ -24,8 +24,8 @@ function getCommentsByAuthorId(req, res) {
 function addComment(req, res) {
     const { id } = req.params;
     console.log(req.body);
-    const { rate, text } = req.body;
-    console.log(rate, text);
+    const { rate, text, cocktailName } = req.body;
+    console.log(rate, text, cocktailName);
     if (!req.session) {
         res.status(401).json({ error: "Unauthorized" });
         return;
@@ -37,6 +37,7 @@ function addComment(req, res) {
     }
     const newComment = comment_model_1.commentModel.addComment({
         cocktailId: id,
+        cocktailName: cocktailName,
         authorId: userId,
         authorName: user.username,
         rate: rate,
@@ -67,7 +68,7 @@ function deleteComment(req, res) {
         res.status(401).json({ error: "Unauthorized" });
         return;
     }
-    const { userId } = req.session.id;
+    const userId = req.session.id;
     const user = user_model_1.userModel.getUserById(userId);
     if (!user) {
         return res.status(404).json({ error: "Unauthorized" });

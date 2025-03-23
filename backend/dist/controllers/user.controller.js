@@ -66,6 +66,7 @@ function checkAuth(req, res) {
             username: user.username,
             email: user.email,
             role: user.role,
+            id: user.id,
         };
         res.status(200).json(data);
     }

@@ -1,20 +1,33 @@
 import React, { useEffect, useState } from "react";
 // import { Cocktail } from "../types/Cocktail";
-import { FaPen, FaSignOutAlt, FaCheck } from "react-icons/fa";
+import { Comment } from "../types/Comment"; // Make sure to import the Comment type¥
 import { useAuthStore } from "../store/authStore";
+import { useCommentStore } from "../store/commentStore";
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
+import { FaPen, FaSignOutAlt, FaCheck, FaStar } from "react-icons/fa";
+
 // import CocktailCard from "../components/CocktailCard";
 
 const Profile: React.FC = () => {
-  const { username, email, signout, updateEmail, updateUsername } = useAuthStore();
+  const { username, email, role, signout, updateEmail, updateUsername } = useAuthStore();
   const [name, setName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
 
+  const [myComment, setMyComment] = useState<Comment[]>([]);
+  const getCommentsByAuthorId = useCommentStore((state) => state.getCommentsByAuthorId);
+
+  const [newComment, setNewComment] = useState<Comment[]>([]);
+  const getComments = useCommentStore((state) => state.getComments);
+
   useEffect(() => {
     if (username) setName(username);
     if (email) setNewEmail(email);
+    getCommentsByAuthorId().then((data) => setMyComment(data));
+    if (role !== "admin") return;
+    getComments().then((data) => setNewComment(data));
   }, [username, email]);
 
   return (
@@ -57,34 +70,77 @@ const Profile: React.FC = () => {
             <FaSignOutAlt />
             <span>Sign Out</span>
           </Button>
-          {/* <Button onClick={signout} className="bg-red-600">
-            <span>Delete Account</span>
-          </Button> */}
         </div>
       </div>
+      {role !== "admin" ? (
+        <div className="mb-10">
+          <h3 className="text-xl font-semibold mb-3">Your Reviews</h3>
+          <div className="space-y-4">
+            {myComment.length ? (
+              myComment.map((comment) => (
+                <Link to={`/cocktails/${comment.cocktailId}`} key={comment.id}>
+                  <div className="bg-white rounded-lg p-4 mb-4">
+                    <div className="mb-3 font-bold">{comment.cocktailName}</div>
+                    <div className="flex text-yellow-400 mb-2">
+                      {[...Array(5)].map((_, i) => (
+                        <FaStar key={i} className={i < comment.rate ? "text-yellow-400" : "text-stone-300"} />
+                      ))}
+                    </div>
+                    <p className="text-gray-700 mt-2">{comment.text}</p>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <p className="text-gray-500">Not Found</p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="mb-10">
+            <h3 className="text-xl font-semibold mb-3">Usage Statistics</h3>
+            <div className="space-y-2">
+              {/* User Statistics */}
+              <div className=" p-4 rounded-md">
+                <h4 className="font-semibold mb-2">User Statistics</h4>
+                <p className="text-gray-500">Total Users: 1,234</p>
+                <p className="text-gray-500">Active Users (Last 30 Days): 567</p>
+                <p className="text-gray-500">New Users (This Month): 123</p>
+              </div>
 
-      <h3 className="text-xl font-semibold mb-3">Favorites</h3>
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        {/* {favorites.length ? (
-          favorites.map((cocktail) => <CocktailCard key={cocktail.idDrink} cocktail={cocktail} />)
-        ) : (
-          <p className="text-gray-500">Not found</p>
-        )} */}
-      </div>
-
-      <h3 className="text-xl font-semibold mb-3">Your Reviews</h3>
-      <div className="space-y-4">
-        {/* {reviews.length ? (
-          reviews.map((review) => (
-            <div key={review.id} className="bg-white shadow-md rounded-lg p-4">
-              <h4 className="text-lg font-bold">{review.cocktailName}</h4>
-              <p className="text-gray-700 mt-2">{review.text}</p>
+              {/* Page View Statistics */}
+              <div className=" p-4 rounded-md">
+                <h4 className="font-semibold mb-2">Page View Statistics</h4>
+                <p className="text-gray-500">Total Page Views: 123,456</p>
+                <p className="text-gray-500">Average Page Stay Time: 2 minutes 30 seconds</p>
+                <p className="text-gray-500">Most Visited Page: /products/123 (12,345 views)</p>
+              </div>
             </div>
-          ))
-        ) : (
-          <p className="text-gray-500">Not Found</p>
-        )} */}
-      </div>
+          </div>
+          <div className="mb-10 ">
+            <h3 className="text-xl font-semibold mb-3">New Reviews</h3>
+            <div className="space-y-4 h-96 overflow-y-auto">
+              {newComment.length ? (
+                newComment.map((comment) => (
+                  <Link to={`/cocktails/${comment.cocktailId}`} key={comment.id}>
+                    <div className="bg-white rounded-lg p-4 mb-4">
+                      <div className="mb-3 font-bold">{comment.cocktailName}</div>
+                      <div className="flex text-yellow-400 mb-2">
+                        {[...Array(5)].map((_, i) => (
+                          <FaStar key={i} className={i < comment.rate ? "text-yellow-400" : "text-stone-300"} />
+                        ))}
+                      </div>
+                      <p className="text-gray-700 mt-2">{comment.text}</p>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <p className="text-gray-500">Not Found</p>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

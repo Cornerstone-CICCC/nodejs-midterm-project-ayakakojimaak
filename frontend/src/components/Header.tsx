@@ -19,7 +19,7 @@ const Header: React.FC = () => {
           {/* Desktop menu */}
           <nav className="hidden md:flex items-center">
             <div className="flex space-x-5 items-center text-stone-800">
-              <Link to="/carts" className="hover:opacity-80 transition-colors duration-200">
+              <Link to="/cart" className="hover:opacity-80 transition-colors duration-200">
                 <FaShoppingCart />
               </Link>
               <Link to="/favorites" className="hover:opacity-80 transition-colors duration-200">
@@ -67,7 +67,7 @@ const Header: React.FC = () => {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-2 py-2 text-stone-800">
-            <Link to="/carts" className="block px-4 py-2 text-sm hover:opacity-80" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/cart" className="block px-4 py-2 text-sm hover:opacity-80" onClick={() => setIsMenuOpen(false)}>
               Cart
             </Link>
             <Link

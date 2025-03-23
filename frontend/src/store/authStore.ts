@@ -5,10 +5,12 @@ type AuthState = {
   username: string | null;
   role: string | null;
   email: string | null;
+  id: string | null;
   favorites: string[];
   setUsername: (name: string) => void;
   setRole: (name: string) => void;
   setEmail: (email: string) => void;
+  setId: (id: string) => void;
   updateEmail: (email: string) => Promise<boolean>;
   updateUsername: (username: string) => Promise<boolean>;
   signup: (username: string, email: string, password: string) => Promise<boolean>;
@@ -22,9 +24,11 @@ export const useAuthStore = create<AuthState>((set) => ({
   favorites: [],
   role: null,
   email: null,
+  id: null,
   setUsername: (name) => set({ username: name }),
   setRole: (name) => set({ role: name }),
   setEmail: (email) => set({ email: email }),
+  setId: (id) => set({ id: id }),
   updateEmail: async (email) => {
     console.log(email);
 
@@ -83,7 +87,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         throw new Error("signup failed");
       }
       const data = await res.json();
-      set({ username: data.username, email: data.email, role: data.role });
+      set({ username: data.username, email: data.email, role: data.role, id: data.id });
       return true;
     } catch (error) {
       console.error(error);
@@ -104,8 +108,9 @@ export const useAuthStore = create<AuthState>((set) => ({
         throw new Error("signin failed");
       }
       const data = await res.json();
-      console.log(data.email);
-      set({ username: data.username, email: data.email, role: data.role });
+      console.log(data);
+      // console.log(data.email);
+      // set({ username: data.username, email: data.email, role: data.role, id: data.id });
       return true;
     } catch (error) {
       console.error(error);
@@ -122,7 +127,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         credentials: "include",
       });
       if (res.ok) {
-        set({ username: null, email: null, role: null });
+        set({ username: null, email: null, role: null, id: null });
         window.location.href = "/";
       }
     } catch (error) {
@@ -143,7 +148,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         return false;
       }
       const data = await res.json();
-      set({ username: data.username, email: data.email, role: data.role });
+      set({ username: data.username, email: data.email, role: data.role, id: data.id });
       return true;
     } catch (error) {
       console.error(error);

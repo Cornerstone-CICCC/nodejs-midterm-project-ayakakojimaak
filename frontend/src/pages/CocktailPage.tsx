@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Cocktail } from "../types/Cocktail";
-import { FaHeart, FaRegHeart, FaTrashAlt, FaStar, FaBookmark, FaRegBookmark } from "react-icons/fa";
+import {
+  FaHeart,
+  FaRegHeart,
+  FaTrashAlt,
+  FaStar,
+  FaBookmark,
+  FaRegBookmark,
+  FaPen,
+  FaTimes,
+  FaCheck,
+} from "react-icons/fa";
 import type { Comment } from "../types/Comment";
 import { useCommentStore } from "../store/commentStore";
 import { useAuthStore } from "../store/authStore";
@@ -14,29 +24,54 @@ const CocktailPage: React.FC = () => {
   const [ingredients, setIngredients] = useState<{ name: string; measure: string; isFavorite: boolean }[]>([]);
   const [isFavorite, setIsFavorite] = useState(false);
   const [newReview, setNewReview] = useState({ rate: 5, comment: "" });
-  const { role } = useAuthStore();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedReview, setEditedReview] = useState({ rate: 5, comment: "" });
+  const { role, id: userId } = useAuthStore();
 
   const comments = useCommentStore((state) => state.comments);
   const getCommentsByCocktailId = useCommentStore((state) => state.getCommentsByCocktailId);
   const addComment = useCommentStore((state) => state.addComment);
+  const editComment = useCommentStore((state) => state.editComment);
+  const deleteComment = useCommentStore((state) => state.deleteComment);
 
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
     // お気に入り状態をサーバーに保存
   };
 
-  const handleAddComment = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleIngredientFavoriteClick = (index: number) => {
+    const updatedIngredients = [...ingredients];
+    updatedIngredients[index].isFavorite = !updatedIngredients[index].isFavorite;
+    setIngredients(updatedIngredients);
+  };
+
+  const handleAddComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!newReview.rate || !newReview.comment) {
       setError("Please fill in all fields");
       return;
     }
-    if (id) {
-      addComment(id, newReview.comment, newReview.rate);
+    if (id && cocktail) {
+      await addComment(id, cocktail.strDrink, newReview.comment, newReview.rate);
       getCommentsByCocktailId(id);
     }
     //form reset
     setNewReview({ rate: 5, comment: "" });
+  };
+
+  const handleEditComment = async (commentId: string, text: string, rate: number) => {
+    if (id) {
+      await editComment(commentId, text, rate);
+      getCommentsByCocktailId(id);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    if (id) {
+      if (!confirm("Are you sure you want to delete this review?")) return;
+      await deleteComment(commentId);
+      getCommentsByCocktailId(id);
+    }
   };
   // get comments by cocktail id
   useEffect(() => {
@@ -85,7 +120,7 @@ const CocktailPage: React.FC = () => {
 
   return (
     <>
-      <div className="flex gap-3 items-center mb-5">
+      <div className="flex gap-3 items-center mb-5 md:mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-stone-800">{cocktail.strDrink}</h1>
         <button onClick={handleFavoriteClick} className="text-2xl transition-transform cursor-pointer">
           {isFavorite ? <FaHeart className="text-red-500" /> : <FaRegHeart className="text-stone-700" />}
@@ -110,7 +145,7 @@ const CocktailPage: React.FC = () => {
                 {ingredients.map((item, index) => (
                   <li key={index} className="flex items-center gap-3">
                     <button
-                      // onClick={() => handleIngredientFavoriteClick(index)}
+                      onClick={() => handleIngredientFavoriteClick(index)}
                       className="ml-2 text-lg transition-colors cursor-pointer"
                       title={item.isFavorite ? "Remove from favorites" : "Add to favorites"}>
                       {item.isFavorite ? (
@@ -150,22 +185,82 @@ const CocktailPage: React.FC = () => {
                     <div className="flex items-center gap-2 mb-1">
                       <span className="font-medium">{comment.authorName}</span>
                     </div>
-                    <div className="flex text-yellow-400 mb-2">
-                      {[...Array(5)].map((_, i) => (
-                        <FaStar key={i} className={i < comment.rate ? "text-yellow-400" : "text-stone-300"} />
-                      ))}
-                    </div>
+                    {isEditing && comment.authorId === userId ? (
+                      <div className="mb-2">
+                        <div className="flex">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <button
+                              key={star}
+                              type="button"
+                              onClick={() => setEditedReview({ ...editedReview, rate: star })}
+                              className="focus:outline-none cursor-pointer">
+                              <FaStar className={star <= editedReview.rate ? "text-yellow-400" : "text-stone-300"} />
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex text-yellow-400 mb-2">
+                        {[...Array(5)].map((_, i) => (
+                          <FaStar key={i} className={i < comment.rate ? "text-yellow-400" : "text-stone-300"} />
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  {role === "admin" && (
-                    <button
-                      // onClick={() => handleDeleteReview(comment.id)}
-                      className="text-stone-400 hover:text-stone-500 transition cursor-pointer"
-                      title="Delete review">
-                      <FaTrashAlt />
-                    </button>
-                  )}
+                  <div className="flex gap-3">
+                    {comment.authorId === userId && isEditing ? (
+                      <>
+                        <button
+                          onClick={() => {
+                            setIsEditing(false);
+                            setEditedReview({ rate: comment.rate, comment: comment.text });
+                          }}
+                          className="text-stone-400 hover:text-stone-500 transition cursor-pointer"
+                          title="Cancel edit">
+                          <FaTimes />
+                        </button>
+                        <button
+                          onClick={() => {
+                            setIsEditing(false);
+                            handleEditComment(comment.id, editedReview.comment, editedReview.rate);
+                          }}
+                          className="text-stone-400 hover:text-stone-500 transition cursor-pointer"
+                          title="Cancel edit">
+                          <FaCheck />
+                        </button>
+                      </>
+                    ) : (
+                      comment.authorId === userId && (
+                        <button
+                          onClick={() => {
+                            setIsEditing(true);
+                          }}
+                          className="text-stone-400 hover:text-stone-500 transition cursor-pointer"
+                          title="Edit review">
+                          <FaPen />
+                        </button>
+                      )
+                    )}
+                    {(role === "admin" || comment.authorId === userId) && (
+                      <button
+                        onClick={() => handleDeleteComment(comment.id)}
+                        className="text-stone-400 hover:text-stone-500 transition cursor-pointer"
+                        title="Delete review">
+                        <FaTrashAlt />
+                      </button>
+                    )}
+                  </div>
                 </div>
-                <p className="text-stone-700">{comment.text}</p>
+                {isEditing && comment.authorId === userId ? (
+                  <textarea
+                    rows={4}
+                    className="w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    value={editedReview.comment}
+                    onChange={(e) => setEditedReview({ ...editedReview, comment: e.target.value })}
+                    placeholder="Share your experience with this cocktail..."></textarea>
+                ) : (
+                  <p className="text-stone-700">{comment.text}</p>
+                )}
               </div>
             ))
           )}
@@ -176,7 +271,6 @@ const CocktailPage: React.FC = () => {
             <h3 className="text-lg font-medium mb-4">Write a Review</h3>
             <form onSubmit={(e) => handleAddComment(e)}>
               <div className="mb-4">
-                <label className="block text-stone-700 mb-2">Rating</label>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button
@@ -190,9 +284,6 @@ const CocktailPage: React.FC = () => {
                 </div>
               </div>
               <div className="mb-4">
-                <label htmlFor="comment" className="block text-stone-700 mb-2">
-                  Comment
-                </label>
                 <textarea
                   id="comment"
                   rows={4}

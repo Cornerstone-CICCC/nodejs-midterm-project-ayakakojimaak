@@ -9,6 +9,7 @@ import CocktailPage from "./pages/CocktailPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import IngredientPage from "./pages/IngredientPage";
 import ProfilePage from "./pages/ProfilePage";
+import CartPage from "./pages/CartPage";
 
 function App() {
   const checkAuth = useAuthStore((state) => state.checkAuth);
@@ -73,6 +74,14 @@ function App() {
           element={
             <Layout>
               <ProfilePage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <Layout>
+              <CartPage />
             </Layout>
           }
         />

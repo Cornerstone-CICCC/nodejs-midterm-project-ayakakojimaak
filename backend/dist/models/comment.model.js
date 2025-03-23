@@ -37,7 +37,7 @@ function editComment(commentId, { text, rate }, user) {
     if (!oldComment) {
         return null;
     }
-    if (oldComment.authorId !== user.id || user.role !== "admin") {
+    if (oldComment.authorId !== user.id && user.role !== "admin") {
         return null;
     }
     const updatedComment = Object.assign(Object.assign({}, oldComment), { text: text || oldComment.text, rate: rate || oldComment.rate });
@@ -51,7 +51,8 @@ function deleteComment(commentId, user) {
     if (!comment) {
         return null;
     }
-    if (comment.authorId !== user.id || user.role !== "admin") {
+    console.log(comment.authorId === user.id, user.role);
+    if (comment.authorId !== user.id && user.role !== "admin") {
         return null;
     }
     comments = comments.filter((comment) => comment.id !== commentId);

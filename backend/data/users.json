@@ -8,9 +8,9 @@
   },
   {
     "username": "Jane",
-    "email": "jane@sample",
-    "password": "$2b$10$pGCZMjtzwD9DUnxuEXGFyeVBBgu2aS1kgIFIvwkkfkRmyKcYCdgli",
-    "id": "47ea31b7-ba88-42a3-a21a-b80e3caecf12",
+    "email": "jane@test",
+    "password": "$2b$10$NJ2NcBnS0WlwRU37SC7qzuFigIBSYwIWVnFN2RWZaI3k/C4lEVGGK",
+    "id": "1fd685d5-324e-4675-86b2-b0cf179eeec0",
     "role": "member"
   }
 ]

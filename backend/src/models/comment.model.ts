@@ -42,7 +42,7 @@ function editComment(commentId: string, { text, rate }: Omit<Comment, "id">, use
   if (!oldComment) {
     return null;
   }
-  if (oldComment.authorId !== user.id || user.role !== "admin") {
+  if (oldComment.authorId !== user.id && user.role !== "admin") {
     return null;
   }
 
@@ -63,10 +63,10 @@ function deleteComment(commentId: string, user: User) {
   if (!comment) {
     return null;
   }
-  if (comment.authorId !== user.id || user.role !== "admin") {
+  console.log(comment.authorId === user.id, user.role);
+  if (comment.authorId !== user.id && user.role !== "admin") {
     return null;
   }
-
   comments = comments.filter((comment: Comment) => comment.id !== commentId);
   fs.writeFileSync(commentsDataFilePath, JSON.stringify(comments, null, 2));
   return comment;

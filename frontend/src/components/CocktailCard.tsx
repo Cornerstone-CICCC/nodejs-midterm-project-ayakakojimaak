@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cocktail } from "../types/Cocktail";
 import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { favoriteCocktails } from "../assets/favoriteCocktails";
+import { useAuthStore } from "../store/authStore";
 
 interface CocktailCardProps {
   cocktail: Cocktail;
@@ -9,12 +11,19 @@ interface CocktailCardProps {
 
 const CocktailCard: React.FC<CocktailCardProps> = ({ cocktail }) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const { username } = useAuthStore();
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsFavorite(!isFavorite);
-    // お気に入り状態をサーバーに保存
   };
+
+  useEffect(() => {
+    if (username) {
+      const isFavorite = favoriteCocktails.some((fav) => fav.idDrink === cocktail.idDrink);
+      setIsFavorite(isFavorite);
+    }
+  }, [cocktail.idDrink]);
 
   return (
     <Link to={`/cocktails/${cocktail.idDrink}`}>
