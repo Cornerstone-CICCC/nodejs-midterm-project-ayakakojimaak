@@ -1,0 +1,16 @@
+[
+  {
+    "username": "test",
+    "email": "test@test",
+    "password": "$2b$10$uUxlA0GLPXRnpnOzZ1uipO1Z0FIe6QMwTVaQCBvREHc3rAJAojpmq",
+    "role": "admin",
+    "id": "d6e71c9b-cb41-496f-a854-6915bf3e5b8f"
+  },
+  {
+    "username": "Jane",
+    "email": "jane@test",
+    "password": "$2b$10$NJ2NcBnS0WlwRU37SC7qzuFigIBSYwIWVnFN2RWZaI3k/C4lEVGGK",
+    "id": "1fd685d5-324e-4675-86b2-b0cf179eeec0",
+    "role": "member"
+  }
+]
