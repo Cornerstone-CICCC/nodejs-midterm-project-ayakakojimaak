@@ -26,6 +26,7 @@ const CocktailPage: React.FC = () => {
   const [newReview, setNewReview] = useState({ rate: 5, comment: "" });
   const [isEditing, setIsEditing] = useState(false);
   const [editedReview, setEditedReview] = useState({ rate: 5, comment: "" });
+  const [searchTerm, setSearchTerm] = useState("");
   const { role, id: userId } = useAuthStore();
 
   const comments = useCommentStore((state) => state.comments);
@@ -73,6 +74,9 @@ const CocktailPage: React.FC = () => {
       getCommentsByCocktailId(id);
     }
   };
+
+  const filteredComments = comments.filter((comment) => comment.text.toLowerCase().includes(searchTerm.toLowerCase()));
+
   // get comments by cocktail id
   useEffect(() => {
     if (id) {
@@ -175,10 +179,28 @@ const CocktailPage: React.FC = () => {
       <div className="mt-12">
         {/* Reviews List */}
         <div className="space-y-6 py-8">
-          {comments.length === 0 ? (
+          {filteredComments.length > 0 && (
+            <h3 className="text-lg font-medium mb-4">Reviews({filteredComments.length})</h3>
+          )}
+          {(filteredComments.length > 0 || searchTerm) && (
+            <div className="mb-6 flex flex-col sm:flex-row gap-2 sm:gap-4 items-center">
+              <div className="w-full sm:w-auto flex-1">
+                <input
+                  type="text"
+                  id="search"
+                  aria-label="Search comments"
+                  placeholder="Search comments..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none transition"
+                />
+              </div>
+            </div>
+          )}
+          {filteredComments.length === 0 ? (
             <p className="text-stone-500 italic">No reviews yet. Be the first to review!</p>
           ) : (
-            comments.map((comment: Comment) => (
+            filteredComments.map((comment: Comment) => (
               <div key={comment.id} className="pb-6">
                 <div className="flex justify-between items-start">
                   <div>
